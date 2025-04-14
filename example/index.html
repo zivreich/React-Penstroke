@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React PenStroke Demo</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="../dist/index.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .demo-section {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+
+    code {
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { PenStroke } = ReactPenStroke;
+    
+    function App() {
+      return (
+        <div>
+          <h1>React PenStroke Demo</h1>
+          
+          <div className="demo-section">
+            <h2>Basic Usage</h2>
+            <p>
+              This is <PenStroke>highlighted text</PenStroke> with a default pen stroke effect.
+            </p>
+            <code>&lt;PenStroke&gt;highlighted text&lt;/PenStroke&gt;</code>
+          </div>
+          
+          <div className="demo-section">
+            <h2>Color Variations</h2>
+            <p>
+              You can use <PenStroke color="#ff9800">orange highlights</PenStroke>,{' '}
+              <PenStroke color="#4caf50">green highlights</PenStroke>, or{' '}
+              <PenStroke color="#f44336">red highlights</PenStroke>.
+            </p>
+            <code>&lt;PenStroke color="#ff9800"&gt;orange highlights&lt;/PenStroke&gt;</code>
+          </div>
+          
+          <div className="demo-section">
+            <h2>Thickness and Roughness</h2>
+            <p>
+              Try <PenStroke thickness={2} roughness={1}>thin and smooth</PenStroke>,{' '}
+              <PenStroke thickness={6} roughness={5}>medium and rough</PenStroke>, or{' '}
+              <PenStroke thickness={10} roughness={8}>thick and very rough</PenStroke>.
+            </p>
+            <code>&lt;PenStroke thickness={2} roughness={1}&gt;thin and smooth&lt;/PenStroke&gt;</code>
+          </div>
+          
+          <div className="demo-section">
+            <h2>Opacity</h2>
+            <p>
+              <PenStroke opacity={0.2}>Light opacity (0.2)</PenStroke>, {' '}
+              <PenStroke opacity={0.5}>Medium opacity (0.5)</PenStroke>, {' '}
+              <PenStroke opacity={0.8}>Heavy opacity (0.8)</PenStroke>
+            </p>
+            <code>&lt;PenStroke opacity={0.2}&gt;Light opacity (0.2)&lt;/PenStroke&gt;</code>
+          </div>
+          
+          <div className="demo-section">
+            <h2>Combined Properties</h2>
+            <p>
+              <PenStroke color="#9c27b0" thickness={8} roughness={7} opacity={0.6}>
+                Custom highlight with multiple properties
+              </PenStroke>
+            </p>
+            <code>
+              &lt;PenStroke color="#9c27b0" thickness={8} roughness={7} opacity={0.6}&gt;<br/>
+              &nbsp;&nbsp;Custom highlight with multiple properties<br/>
+              &lt;/PenStroke&gt;
+            </code>
+          </div>
+        </div>
+      );
+    }
+    
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html> 

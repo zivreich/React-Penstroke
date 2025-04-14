@@ -1,0 +1,30 @@
+# Source
+src/
+example/
+
+# Tests
+__tests__/
+**/*.test.ts
+**/*.test.tsx
+jest.config.js
+jest.setup.js
+
+# Build
+tsconfig.json
+rollup.config.mjs
+
+# Development
+.git/
+.gitignore
+.gitattributes
+node_modules/
+
+# Editor
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment
+.env*
+.DS_Store
+Thumbs.db 
