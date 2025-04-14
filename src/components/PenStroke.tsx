@@ -1,4 +1,6 @@
 import React from 'react';
+import { Strokes } from './stokeAssets';
+
 
 export interface PenStrokeProps {
   /**
@@ -33,6 +35,16 @@ export interface PenStrokeProps {
    * Additional inline styles
    */
   style?: React.CSSProperties;
+  /**
+   * Whether to place the highlight behind the text
+   * @default false
+   */
+  behind?: boolean;
+  /**
+   * Whether the stroke should be under the text
+   * @default false
+   */
+  underline?: boolean;
 }
 
 /**
@@ -46,37 +58,24 @@ const PenStroke: React.FC<PenStrokeProps> = ({
   roughness = 3,
   className = '',
   style = {},
+  behind = false,
+  underline = false,
 }) => {
   // Limit the values to reasonable ranges
   const safeThickness = Math.max(1, Math.min(10, thickness));
   const safeRoughness = Math.max(1, Math.min(10, roughness));
+  const Stroke = Strokes[Math.floor(Math.random() * Strokes.length)];
   
-  // Calculate clip path for the marker effect
-  // More roughness means more variations in the clip path
-  const generateClipPath = () => {
-    const variance = safeRoughness * 0.5;
-    const topOffset = -safeThickness / 2;
-    const bottomOffset = safeThickness / 2;
-    
-    return `
-      polygon(
-        0% ${topOffset - Math.random() * variance}%,
-        100% ${topOffset - Math.random() * variance}%,
-        100% ${100 + bottomOffset + Math.random() * variance}%,
-        0% ${100 + bottomOffset + Math.random() * variance}%
-      )
-    `;
-  };
-
   return (
     <span
       className={`react-penstroke ${className}`}
       style={{
         position: 'relative',
-        display: 'inline',
+        display: 'block',
         ...style,
       }}
     >
+      {behind ? children : null}
       <span
         style={{
           position: 'absolute',
@@ -84,14 +83,35 @@ const PenStroke: React.FC<PenStrokeProps> = ({
           right: 0,
           top: 0,
           bottom: 0,
-          backgroundColor: color,
           opacity,
-          clipPath: generateClipPath(),
-          zIndex: -1,
+          zIndex: behind ? -1 : 1,
           transform: `rotate(${Math.random() * safeRoughness * 0.2 - safeRoughness * 0.1}deg)`,
+          mixBlendMode: behind ? 'normal' : 'multiply',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
         }}
-      />
-      {children}
+      >
+        <div style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+        }}>
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            width: '100%',
+            top: underline ? '100%' : '50%',
+            transform: underline ? 'translateY(-10%)' : 'translateY(-50%)',
+            height: `${safeThickness * 10}%`, // Scale based on thickness
+          }}>
+            <Stroke color={color} />
+          </div>
+        </div>
+      </span>
+      {behind ? null : children}
     </span>
   );
 };
