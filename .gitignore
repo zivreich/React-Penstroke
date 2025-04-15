@@ -131,3 +131,6 @@ dist
 
 # Local testing folder
 local-testing/
+
+# SVGs folder
+SVGs/

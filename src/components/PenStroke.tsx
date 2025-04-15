@@ -1,5 +1,5 @@
 import React from 'react';
-import { Strokes } from './stokeAssets';
+import { Strokes } from './strokeAssets';
 
 
 export interface PenStrokeProps {
@@ -45,6 +45,12 @@ export interface PenStrokeProps {
    * @default false
    */
   underline?: boolean;
+  /**
+   * Index of the stroke style to use (0 or 1)
+   * Use "random" for random stroke selection
+   * @default 1
+   */
+  strokeIndex?: number | "random";
 }
 
 /**
@@ -60,11 +66,24 @@ const PenStroke: React.FC<PenStrokeProps> = ({
   style = {},
   behind = false,
   underline = false,
+  strokeIndex = 1,
 }) => {
   // Limit the values to reasonable ranges
   const safeThickness = Math.max(1, Math.min(10, thickness));
   const safeRoughness = Math.max(1, Math.min(10, roughness));
-  const Stroke = Strokes[Math.floor(Math.random() * Strokes.length)];
+  
+  // Select stroke based on strokeIndex (use random only if "random" is explicitly specified)
+  const Stroke = strokeIndex === "random"
+    ? Strokes[Math.floor(Math.random() * Strokes.length)]
+    : typeof strokeIndex === "number" && strokeIndex >= 0 && strokeIndex < Strokes.length
+      ? Strokes[strokeIndex]
+      : Strokes[1]; // Default to index 1
+  
+  // Check if children is a heading element
+  const isBlock = React.Children.toArray(children).some(child => 
+    React.isValidElement(child) && 
+    ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child.type as string)
+  );
   
   return (
     <span
@@ -74,6 +93,7 @@ const PenStroke: React.FC<PenStrokeProps> = ({
         display: 'inline-block',
         justifyContent: 'center',
         alignItems: 'center',
+        width: isBlock ? 'fit-content' : undefined,
         ...style,
       }}
     >
@@ -88,12 +108,12 @@ const PenStroke: React.FC<PenStrokeProps> = ({
           opacity,
           zIndex: behind ? -1 : 1,
           transform: `rotate(${Math.random() * safeRoughness * 0.2 - safeRoughness * 0.1}deg)`,
-          //mixBlendMode: behind ? 'normal' : 'hard-light',
           mixBlendMode: 'hard-light',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           pointerEvents: 'none',
+          width: '100%',
         }}
       >
         <div style={{
@@ -105,10 +125,12 @@ const PenStroke: React.FC<PenStrokeProps> = ({
             position: 'absolute',
             left: '50%',
             right: 0,
-            width: '115%',
-            top: underline ? '100%' : '50%',
+            width: underline 
+              ? '115%' 
+              : '105%',
+            top: underline ? '60%' : '50%',
             transform: underline ? 'translate(-50%, -10%)' : 'translate(-50%, -40%)',
-            height: `${safeThickness * 10}%`, // Scale based on thickness
+            height: `${safeThickness *   7}%`,
           }}>
             <Stroke color={color} />
           </div>
