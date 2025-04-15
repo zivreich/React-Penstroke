@@ -60,4 +60,4 @@ function Example() {
 
 ## License
 
-MIT © React-Penstroke Team
+MIT © Ziv Reich

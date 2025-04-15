@@ -71,7 +71,9 @@ const PenStroke: React.FC<PenStrokeProps> = ({
       className={`react-penstroke ${className}`}
       style={{
         position: 'relative',
-        display: 'block',
+        display: 'inline-block',
+        justifyContent: 'center',
+        alignItems: 'center',
         ...style,
       }}
     >
@@ -86,7 +88,8 @@ const PenStroke: React.FC<PenStrokeProps> = ({
           opacity,
           zIndex: behind ? -1 : 1,
           transform: `rotate(${Math.random() * safeRoughness * 0.2 - safeRoughness * 0.1}deg)`,
-          mixBlendMode: behind ? 'normal' : 'multiply',
+          //mixBlendMode: behind ? 'normal' : 'hard-light',
+          mixBlendMode: 'hard-light',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -100,11 +103,11 @@ const PenStroke: React.FC<PenStrokeProps> = ({
         }}>
           <div style={{
             position: 'absolute',
-            left: 0,
+            left: '50%',
             right: 0,
-            width: '100%',
+            width: '115%',
             top: underline ? '100%' : '50%',
-            transform: underline ? 'translateY(-10%)' : 'translateY(-50%)',
+            transform: underline ? 'translate(-50%, -10%)' : 'translate(-50%, -40%)',
             height: `${safeThickness * 10}%`, // Scale based on thickness
           }}>
             <Stroke color={color} />
