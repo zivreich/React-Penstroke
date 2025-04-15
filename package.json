@@ -1,6 +1,6 @@
 {
   "name": "react-penstroke",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight React component that highlights text with a smooth, hand-drawn marker effect. Perfect for emphasizing content like a real pen stroke in a book.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -25,8 +25,8 @@
     "ui"
   ],
   "repository": {
-  "type": "git",
-  "url": "https://github.com/zivreich/React-Penstroke"
+    "type": "git",
+    "url": "https://github.com/zivreich/React-Penstroke"
   },
   "bugs": {
     "url": "https://github.com/zivreich/React-Penstroke/issues"
