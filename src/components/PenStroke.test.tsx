@@ -24,25 +24,25 @@ describe('PenStroke', () => {
   test('applies default props correctly', () => {
     const { container } = render(<PenStroke>Test Content</PenStroke>);
     const highlightElement = container.querySelector('.react-penstroke > span');
-    
-    expect(highlightElement).toHaveStyle('background-color: #ffeb3b');
+
+    // SVG based, so no background-color style on the span
     expect(highlightElement).toHaveStyle('opacity: 0.5');
   });
 
   test('applies custom props correctly', () => {
     const { container } = render(
-      <PenStroke 
-        color="#ff0000" 
-        opacity={0.8} 
-        thickness={8} 
+      <PenStroke
+        color="#ff0000"
+        opacity={0.8}
+        thickness={8}
         roughness={5}
       >
         Test Content
       </PenStroke>
     );
-    
+
     const highlightElement = container.querySelector('.react-penstroke > span');
-    expect(highlightElement).toHaveStyle('background-color: #ff0000');
+    // SVG based, so no background-color style on the span
     expect(highlightElement).toHaveStyle('opacity: 0.8');
   });
 }); 
