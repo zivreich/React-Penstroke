@@ -30,8 +30,18 @@ function Example() {
       </h1>
       
       <p>
-        You can <PenStroke color="#ff9800" thickness={8} roughness={5}>customize</PenStroke> the appearance
-        or use it for <PenStroke color="#4caf50" opacity={0.7}>important phrases</PenStroke> in your content.
+        You can <PenStroke color="#ff9800" thickness={8} roughness={5}>customize</PenStroke> the appearance.
+      </p>
+
+      <h3>Styles</h3>
+      <p>
+        <PenStroke underline>Underline style</PenStroke> instead of highlight.
+      </p>
+      <p>
+        <PenStroke behind>Highlight behind text</PenStroke> (great for dark mode).
+      </p>
+      <p>
+        <PenStroke strokeIndex={0}>Specific stroke style</PenStroke> or <PenStroke strokeIndex="random">random style</PenStroke>.
       </p>
     </div>
   );
@@ -40,15 +50,18 @@ function Example() {
 
 ## Props
 
-| Prop       | Type              | Default    | Description                                  |
-|------------|-------------------|------------|----------------------------------------------|
-| children   | React.ReactNode   | (required) | The text to highlight                        |
-| color      | string            | '#ffeb3b'  | The highlight color                          |
-| opacity    | number            | 0.5        | The opacity of the highlight (0-1)           |
-| thickness  | number            | 6          | The thickness of the highlight (1-10)        |
-| roughness  | number            | 3          | The roughness of the highlight edge (1-10)   |
-| className  | string            | ''         | Additional CSS class names                   |
-| style      | React.CSSProperties | {}       | Additional inline styles                     |
+| Prop        | Type               | Default    | Description                                                    |
+|-------------|--------------------|------------|----------------------------------------------------------------|
+| children    | React.ReactNode    | (required) | The text to highlight                                          |
+| color       | string             | '#ffeb3b'  | The highlight color                                            |
+| opacity     | number             | 0.5        | The opacity of the highlight (0-1)                             |
+| thickness   | number             | 6          | The thickness of the highlight (1-10)                          |
+| roughness   | number             | 3          | The roughness of the highlight edge (1-10)                     |
+| behind      | boolean            | false      | Whether to place the highlight behind the text                 |
+| underline   | boolean            | false      | Whether the stroke should be under the text (underline effect) |
+| strokeIndex | number \| "random" | 1          | Index of the stroke style to use, or "random"                  |
+| className   | string             | ''         | Additional CSS class names                                     |
+| style       | React.CSSProperties| {}         | Additional inline styles                                       |
 
 ## Features
 
