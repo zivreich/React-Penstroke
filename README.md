@@ -55,7 +55,7 @@ function Example() {
 | children    | React.ReactNode    | (required) | The text to highlight                                          |
 | color       | string             | '#ffeb3b'  | The highlight color                                            |
 | opacity     | number             | 0.5        | The opacity of the highlight (0-1)                             |
-| thickness   | number             | 6          | The thickness of the highlight (1-10)                          |
+| thickness   | number             | 6          | The thickness of the highlight (1-25)                          |
 | roughness   | number             | 3          | The roughness of the highlight edge (1-10)                     |
 | behind      | boolean            | false      | Whether to place the highlight behind the text                 |
 | underline   | boolean            | false      | Whether the stroke should be under the text (underline effect) |

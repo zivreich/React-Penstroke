@@ -96,7 +96,7 @@ export default function Home() {
               <input
                 type="range"
                 min="1"
-                max="10"
+                max="25"
                 step="1"
                 value={thickness}
                 onChange={(e) => setThickness(parseInt(e.target.value))}

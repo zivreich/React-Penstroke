@@ -18,7 +18,7 @@ export interface PenStrokeProps {
      */
     opacity?: number;
     /**
-     * The thickness of the highlight (1-10)
+     * The thickness of the highlight (1-25)
      * @default 6
      */
     thickness?: number;
@@ -75,7 +75,7 @@ const PenStroke: React.FC<PenStrokeProps> = ({
     width = '100%',
 }) => {
     // Limit the values to reasonable ranges
-    const safeThickness = Math.max(1, Math.min(10, thickness));
+    const safeThickness = Math.max(1, Math.min(25, thickness));
     const safeRoughness = Math.max(1, Math.min(10, roughness));
 
     // State for random values to prevent hydration mismatch
