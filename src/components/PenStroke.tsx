@@ -111,6 +111,7 @@ const PenStroke: React.FC<PenStrokeProps> = ({
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: isBlock ? 'fit-content' : undefined,
+                isolation: 'isolate',
                 ...style,
             }}
         >

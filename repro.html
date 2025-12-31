@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f0f0f0;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        .pen-stroke {
+            position: relative;
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .stroke {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #ffeb3b;
+            opacity: 0.5;
+            /* transform: rotate(-2deg); */
+            pointer-events: none;
+        }
+        .behind {
+            z-index: -1;
+        }
+        .fix {
+            isolation: isolate;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reproduction of z-index issue</h1>
+
+    <div class="container">
+        <h2>Case 1: Without Fix (Current Behavior)</h2>
+        <p>The yellow highlight should be visible behind the text "HIGHLIGHTED".</p>
+        <p>
+            This is <span class="pen-stroke">
+                HIGHLIGHTED
+                <span class="stroke behind"></span>
+            </span> text.
+        </p>
+        <p>If the highlight is missing, it's because it's behind the white container background.</p>
+    </div>
+
+    <div class="container">
+        <h2>Case 2: With Fix (isolation: isolate)</h2>
+        <p>The yellow highlight should be visible behind the text "HIGHLIGHTED".</p>
+        <p>
+            This is <span class="pen-stroke fix">
+                HIGHLIGHTED
+                <span class="stroke behind"></span>
+            </span> text.
+        </p>
+    </div>
+</body>
+</html>
