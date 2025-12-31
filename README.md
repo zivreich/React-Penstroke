@@ -60,6 +60,7 @@ function Example() {
 | behind      | boolean            | false      | Whether to place the highlight behind the text                 |
 | underline   | boolean            | false      | Whether the stroke should be under the text (underline effect) |
 | strokeIndex | number \| "random" | 1          | Index of the stroke style to use, or "random"                  |
+| width       | string \| number   | '100%'     | The width of the stroke relative to the text                   |
 | className   | string             | ''         | Additional CSS class names                                     |
 | style       | React.CSSProperties| {}         | Additional inline styles                                       |
 

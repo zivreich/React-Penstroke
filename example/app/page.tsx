@@ -13,6 +13,7 @@ export default function Home() {
   const [underline, setUnderline] = useState(false);
   const [strokeIndex, setStrokeIndex] = useState<number | "random">(1);
   const [isRandomStroke, setIsRandomStroke] = useState(false);
+  const [width, setWidth] = useState(100);
 
   const handleStrokeIndexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value);
@@ -37,7 +38,7 @@ export default function Home() {
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">React PenStroke Playground</h1>
           <p className="text-gray-600">
-            Tweak the controls below to see the <PenStroke color={color} thickness={thickness} roughness={roughness} opacity={opacity} behind={behind} underline={underline} strokeIndex={strokeIndex}>dynamic effect</PenStroke> in action.
+            Tweak the controls below to see the <PenStroke color={color} thickness={thickness} roughness={roughness} opacity={opacity} behind={behind} underline={underline} strokeIndex={strokeIndex} width={`${width}%`}>dynamic effect</PenStroke> in action.
           </p>
         </header>
 
@@ -119,6 +120,22 @@ export default function Home() {
               />
             </div>
 
+            {/* Width Slider */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Width: {width}%
+              </label>
+              <input
+                type="range"
+                min="10"
+                max="200"
+                step="5"
+                value={width}
+                onChange={(e) => setWidth(parseInt(e.target.value))}
+                className="w-full"
+              />
+            </div>
+
             {/* Toggles */}
             <div className="space-y-3">
               <div className="flex items-center">
@@ -188,6 +205,7 @@ export default function Home() {
                 behind={behind}
                 underline={underline}
                 strokeIndex={strokeIndex}
+                width={`${width}%`}
               >
                 {text}
               </PenStroke>
@@ -203,6 +221,7 @@ export default function Home() {
   behind={${behind}}
   underline={${underline}}
   strokeIndex={${typeof strokeIndex === 'string' ? `"${strokeIndex}"` : strokeIndex}}
+  width="${width}%"
 >
   ${text}
 </PenStroke>`}

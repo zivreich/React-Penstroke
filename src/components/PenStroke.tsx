@@ -51,6 +51,11 @@ export interface PenStrokeProps {
    * @default 1
    */
   strokeIndex?: number | "random";
+  /**
+   * The width of the stroke relative to the text
+   * @default '100%'
+   */
+  width?: string | number;
 }
 
 /**
@@ -67,6 +72,7 @@ const PenStroke: React.FC<PenStrokeProps> = ({
   behind = false,
   underline = false,
   strokeIndex = 1,
+  width = '100%',
 }) => {
   // Limit the values to reasonable ranges
   const safeThickness = Math.max(1, Math.min(10, thickness));
@@ -138,8 +144,8 @@ const PenStroke: React.FC<PenStrokeProps> = ({
             left: '50%',
             right: 0,
             width: underline
-              ? '115%'
-              : '105%',
+              ? (typeof width === 'number' ? `${width * 1.15}%` : `calc(${width} * 1.15)`)
+              : (typeof width === 'number' ? `${width * 1.05}%` : `calc(${width} * 1.05)`),
             top: underline ? '60%' : '50%',
             transform: underline ? 'translate(-50%, -10%)' : 'translate(-50%, -40%)',
             height: `${safeThickness * 7}%`,
