@@ -43,6 +43,9 @@ function Example() {
       <p>
         <PenStroke strokeIndex={0}>Specific stroke style</PenStroke> or <PenStroke strokeIndex="random">random style</PenStroke>.
       </p>
+      <p>
+        <PenStroke animate>Animated stroke</PenStroke> or <PenStroke hover animate>animate on hover</PenStroke>.
+      </p>
     </div>
   );
 }
@@ -61,6 +64,8 @@ function Example() {
 | underline   | boolean            | false      | Whether the stroke should be under the text (underline effect) |
 | strokeIndex | number \| "random" | 1          | Index of the stroke style to use, or "random"                  |
 | width       | string \| number   | '100%'     | The width of the stroke relative to the text                   |
+| animate     | boolean            | false      | Whether to animate the stroke drawing                          |
+| hover       | boolean            | false      | Whether to show the stroke only on hover                       |
 | className   | string             | ''         | Additional CSS class names                                     |
 | style       | React.CSSProperties| {}         | Additional inline styles                                       |
 
