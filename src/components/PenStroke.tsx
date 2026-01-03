@@ -56,6 +56,16 @@ export interface PenStrokeProps {
      * @default '100%'
      */
     width?: string | number;
+    /**
+     * Whether to animate the stroke drawing
+     * @default false
+     */
+    animate?: boolean;
+    /**
+     * Whether to show the stroke only on hover
+     * @default false
+     */
+    hover?: boolean;
 }
 
 /**
@@ -73,6 +83,8 @@ const PenStroke: React.FC<PenStrokeProps> = ({
     underline = false,
     strokeIndex = 1,
     width = '100%',
+    animate = false,
+    hover = false,
 }) => {
     // Limit the values to reasonable ranges
     const safeThickness = Math.max(1, Math.min(25, thickness));
@@ -81,6 +93,7 @@ const PenStroke: React.FC<PenStrokeProps> = ({
     // State for random values to prevent hydration mismatch
     const [rotation, setRotation] = React.useState(0);
     const [SelectedStroke, setSelectedStroke] = React.useState<React.FC<{ color: string }>>(() => Strokes[1]);
+    const [isHovered, setIsHovered] = React.useState(false);
 
     React.useEffect(() => {
         // Generate random rotation on client side only
@@ -102,9 +115,13 @@ const PenStroke: React.FC<PenStrokeProps> = ({
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child.type as string)
     );
 
+    const shouldShow = !hover || isHovered;
+
     return (
         <span
             className={`react-penstroke ${className}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
                 display: 'inline-block',
@@ -115,6 +132,18 @@ const PenStroke: React.FC<PenStrokeProps> = ({
                 ...style,
             }}
         >
+            {animate && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    @keyframes wipeStroke {
+                        0% { clip-path: inset(0 100% 0 0); }
+                        100% { clip-path: inset(0 0 0 0); }
+                    }
+                    .pen-stroke-animate {
+                        animation: wipeStroke 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                    }
+                `}} />
+            )}
             {behind ? children : null}
             <span
                 style={{
@@ -123,7 +152,8 @@ const PenStroke: React.FC<PenStrokeProps> = ({
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    opacity,
+                    opacity: shouldShow ? opacity : 0,
+                    transition: 'opacity 0.2s ease-in-out',
                     zIndex: behind ? -1 : 1,
                     transform: `rotate(${rotation}deg)`,
                     mixBlendMode: 'hard-light',
@@ -140,18 +170,21 @@ const PenStroke: React.FC<PenStrokeProps> = ({
                     position: 'relative',
                     display: 'block',
                 }}>
-                    <span style={{
-                        position: 'absolute',
-                        left: '50%',
-                        right: 0,
-                        width: underline
-                            ? (typeof width === 'number' ? `${width * 1.15}%` : `calc(${width} * 1.15)`)
-                            : (typeof width === 'number' ? `${width * 1.05}%` : `calc(${width} * 1.05)`),
-                        top: underline ? '60%' : '50%',
-                        transform: underline ? 'translate(-50%, -10%)' : 'translate(-50%, -40%)',
-                        height: `${safeThickness * 7}%`,
-                        display: 'block',
-                    }}>
+                    <span
+                        className={shouldShow && animate ? "pen-stroke-animate" : ""}
+                        style={{
+                            position: 'absolute',
+                            left: '50%',
+                            right: 0,
+                            width: underline
+                                ? (typeof width === 'number' ? `${width * 1.15}%` : `calc(${width} * 1.15)`)
+                                : (typeof width === 'number' ? `${width * 1.05}%` : `calc(${width} * 1.05)`),
+                            top: underline ? '60%' : '50%',
+                            transform: underline ? 'translate(-50%, -10%)' : 'translate(-50%, -40%)',
+                            height: `${safeThickness * 7}%`,
+                            display: 'block',
+                        }}
+                    >
                         <SelectedStroke color={color} />
                     </span>
                 </span>

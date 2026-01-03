@@ -14,6 +14,8 @@ export default function Home() {
   const [strokeIndex, setStrokeIndex] = useState<number | "random">(1);
   const [isRandomStroke, setIsRandomStroke] = useState(false);
   const [width, setWidth] = useState(100);
+  const [animate, setAnimate] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const handleStrokeIndexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value);
@@ -162,6 +164,30 @@ export default function Home() {
                   Underline Mode
                 </label>
               </div>
+              <div className="flex items-center">
+                <input
+                  id="animate"
+                  type="checkbox"
+                  checked={animate}
+                  onChange={(e) => setAnimate(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="animate" className="ml-2 block text-sm text-gray-900">
+                  Animate Drawing
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  id="hover"
+                  type="checkbox"
+                  checked={hover}
+                  onChange={(e) => setHover(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="hover" className="ml-2 block text-sm text-gray-900">
+                  Hover Only
+                </label>
+              </div>
             </div>
 
             {/* Stroke Index */}
@@ -206,6 +232,8 @@ export default function Home() {
                 underline={underline}
                 strokeIndex={strokeIndex}
                 width={`${width}%`}
+                animate={animate}
+                hover={hover}
               >
                 {text}
               </PenStroke>
@@ -222,6 +250,8 @@ export default function Home() {
   underline={${underline}}
   strokeIndex={${typeof strokeIndex === 'string' ? `"${strokeIndex}"` : strokeIndex}}
   width="${width}%"
+  animate={${animate}}
+  hover={${hover}}
 >
   ${text}
 </PenStroke>`}
